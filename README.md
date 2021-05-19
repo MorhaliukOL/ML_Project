@@ -2,5 +2,5 @@
 Machine Learning
 
 Authors:
-Oleh Morhaliuk
+Oleh Morhaliuk,
 Kurenkov Mykola
