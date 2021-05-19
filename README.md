@@ -3,3 +3,4 @@ Machine Learning
 
 Authors:
 Oleh Morhaliuk
+Kurenkov Mykola
