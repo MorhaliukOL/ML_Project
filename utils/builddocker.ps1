@@ -11,6 +11,3 @@ $INSTALL_DIR=Join-Path ${PWD} "install"
 $DOCKERFILE_PATH=Join-Path $INSTALL_DIR $Dockerfile
 
 docker build -t "ml_project:v1" -f $DOCKERFILE_PATH $INSTALL_DIR
-
-
-docker build -t "ml_project:v1" -f Join-Path Join-Path ${PWD} "install" $args[0] Join-Path ${PWD} "install"
