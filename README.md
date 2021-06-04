@@ -6,7 +6,7 @@ The goal of this project is to build a model that predicts car prices based on t
 ## Project setup
 1. Clone project from github
 2. Open project root directory in PowerShell
-3. Run: `./utils/builddocker.ps1 minimal.Dockerfile`
+3. Run: `./utils/builddocker.ps1 ./install/minimal.Dockerfile`
 4. Run: `./utils/runnotebook.ps1`
 ______________________
 
