@@ -9,3 +9,9 @@ ENV PYTHONPATH "${PYTHONPATH}:/tf"
 
 COPY ./requirements.txt ./
 RUN pip install -r requirements.txt
+
+# enable jupyter notebook extensions
+RUN jupyter contrib nbextension install --user
+RUN jupyter nbextensions_configurator enable --user
+RUN jupyter nbextension enable collapsible_headings/main
+RUN jupyter nbextension enable varInspector/main
