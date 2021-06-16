@@ -1,4 +1,3 @@
-#!/bin/bash
 # Builds a docker image for ML_Project
 # takes 1 argument - path to a dockerfile e.g. './install/train-gpu.Dockerfile'
 # It assumes all Dockerfiles are in ML_Project/install/ directory
