@@ -27,6 +27,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Other not for git things
+flask_pr/uploads/
+
 # Datasets
 datasets/autoria/
 *.zip
