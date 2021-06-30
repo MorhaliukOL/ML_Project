@@ -8,7 +8,7 @@
 <body class="bg-light">
 
 <div class="container">
-  <form name="Pay" method="post" action="/" accept-charset="UTF-8">
+  <form name="Pay" method="post" action="/" accept-charset="UTF-8" enctype="multipart/form-data">
     <div class="py-5 text-center">
       <img class="d-block mx-auto mb-4" src="/static/logo.jpg" alt="" width="520" height="285">
       <h2>Car price predictor</h2>
@@ -22,7 +22,7 @@
 
               <div class="mb-3">
                 <label for="photo" class="form-label">Attach photo here</label>
-                <input class="form-control" type="file" id="photo">
+                <input class="form-control" type="file" id="photo" name="photo">
               </div>
 
               <div class="col-col-12">
