@@ -1,6 +1,9 @@
+import pickle
 import numpy as np
 import tensorflow as tf
 
+
+FEATURE_ENCODING_PATH = '../datasets/autoria/feature_encoding.pkl'
 
 # All images first resized to 'mid_size' without distortions
 MID_SIZE = (250, 380)
@@ -18,3 +21,28 @@ def process_image(path):
     img = np.expand_dims(img, 0)
     
     return img
+
+
+def encode_features(**features):
+    """
+    Return encoded features.
+
+    Example of 'data' kwargs:
+    data = {
+        'brand' : 'BMW',
+        'fuel_type' : 'petrol',
+        'transmission_type' : 'automatic',
+        'mileage_kkm' : 145,
+        'year_made' : 2010,
+        'engine_size' : 4.4,
+    }
+    """
+
+    with open(FEATURE_ENCODING_PATH, 'rb') as f:
+        encoding = pickle.load(f)
+
+    for f, val in features.items():
+        val = val.lower() if isinstance(val, str) else val
+        if f in encoding:
+            features[f] = encoding[f].transform([val])
+    return [list(features.values())]

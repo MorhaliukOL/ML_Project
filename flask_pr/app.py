@@ -1,15 +1,18 @@
 import os
+import joblib
 import numpy as np
 import tensorflow as tf
 
 from flask import Flask
 from flask import Flask, render_template, request, redirect
 
-from utils import process_image
+from utils import process_image, encode_features
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
 IMAGE_MODEL_PATH = '../train/models/0/'
+TABULAR_MODEL_PATH = '../train/models/tab_price_0/rfr_model.sav'
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -77,8 +80,8 @@ def index():
             return render_template('error.html', error=err)
 
         if data_is_valid:
-            # prediction = predict_price(brand, mileage_kkm, fuel_type, transmission_type, year_made, engine_size)
-            return render_template('predict.html', prediction = 100)
+            prediction = predict_price(brand, mileage_kkm, fuel_type, transmission_type, year_made, engine_size)
+            return render_template('predict.html', prediction=prediction)
 
     return render_template('index.html', brands=CAR_BRANDS, fuel_types=FUEL_TYPE, transmission_types=TRANSMISSION_TYPE,
                            years_made=list(YEAR_MADE))
@@ -104,16 +107,17 @@ def validate_car_data(brand, mileage_kkm, fuel_type, transmission_type, year_mad
 
 
 def predict_price(brand, mileage_kkm, fuel_type, transmission_type, year_made, engine_size):
-    test_data = [brand, mileage_kkm, fuel_type, transmission_type, year_made, engine_size]
-    test_data = np.array(test_data)
-    test_data = test_data.reshape(1, -1)
+    data = encode_features(
+        brand=brand,
+        mileage_kkm=mileage_kkm,
+        fuel_type=fuel_type,
+        transmission_type=transmission_type,
+        year_made=year_made,
+        engine_size=engine_size,
+    )
 
-    path_to_numerical_model = 'randomforest_model.pkl'
-    file = open(path_to_numerical_model, "rb")
-
-    trained_model = joblib.load(file)
-    prediction = trained_model.predict(test_data)
-
+    model = joblib.load(TABULAR_MODEL_PATH)
+    prediction = int(model.predict(data)[0])
     return prediction
 
 
